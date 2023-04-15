@@ -1,0 +1,17 @@
+[package]
+name = "rls"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+axum = "0.6.15"
+redis = "0.23.0"
+serde = "1.0.160"
+serde_json = "1.0.96"
+tokio = {version="1.27.0", features=["full"]}
+tower-http = { version = "0.4.0", features = ["cors"] }
+tracing = "0.1.37"
+tracing-subscriber = {version="0.3.16", features=["env-filter"]}
+
