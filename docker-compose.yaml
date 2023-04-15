@@ -6,6 +6,7 @@ services:
     volumes:
       - ./docker/redis:/usr/local/etc/redis
   rls:
-    container_name: rls
-    image: rls
-    
+    container_name: rls 
+    image: localhost/rls:latest
+    ports:
+      - "80:80"
