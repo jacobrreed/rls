@@ -1,7 +1,7 @@
 FROM rust:1.67 as builder
 WORKDIR /rls 
-COPY ./rs/Cargo* .
-COPY ./rs/src ./src
+COPY ./Cargo* .
+COPY ./src ./src
 RUN cargo install --force --path .
 
 FROM debian:bullseye-slim

@@ -4,7 +4,7 @@ services:
     container_name: redis
     image: redis:7.0.10-alpine
     volumes:
-      - ./docker/redis:/usr/local/etc/redis
+      - ./.dockerstorage/redis:/usr/local/etc/redis
     ports:
       - "6379:6379"
   rls:
