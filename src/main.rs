@@ -1,6 +1,6 @@
-extern crate redis;
+extern crate url;
+use url::{Url};
 use axum::{http::StatusCode, response::IntoResponse, routing::post, Json, Router};
-use redis::Commands;
 use serde::Deserialize;
 use serde::Serialize;
 use tower_http::cors::{Any, CorsLayer};
@@ -12,8 +12,7 @@ struct CreateUrl {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, Eq, Hash, PartialEq)]
-struct Url {
-    id: u64,
+struct UrlRes {
     url: String,
     shortUrl: String,
 }
@@ -40,17 +39,12 @@ async fn main() {
 }
 
 async fn generate_url(Json(payload): Json<CreateUrl>) -> impl IntoResponse {
-    let url = Url {
-        url: payload.url,
-        shortUrl: String::from("https://neonvoid.io/{}", 1),
+    // check if url is valid
+    let url = Url::parse(&payload.url).unwrap();
+    let url_res = UrlRes {
+        url: url.to_string(),
+        shortUrl: String::from("https://neonvoid.io/{}"),
     };
 
-    (StatusCode::CREATED, Json(url))
-}
-
-fn set_url(url: &str, surl: &str) -> redis::RedisResult<()> {
-    let client = redis::Client::open("redis://localhost:6379")?;
-    let mut con = client.get_connection()?;
-    let _: () = con.set(surl, url)?;
-    Ok(())
+    (StatusCode::CREATED, Json(url_res))
 }

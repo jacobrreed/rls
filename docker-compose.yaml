@@ -7,8 +7,8 @@ services:
       - ./.dockerstorage/redis:/usr/local/etc/redis
     ports:
       - "6379:6379"
-  rls:
-    container_name: rls
-    image: localhost/rls:latest
-    ports:
-      - "80:80"
+  # rls:
+  #   container_name: rls
+  #   image: localhost/rls:latest
+  #   ports:
+  #     - "80:80"
