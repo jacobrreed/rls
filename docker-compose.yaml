@@ -1,12 +1,19 @@
 version: "3"
 services:
-  redis:
-    container_name: redis
-    image: redis:7.0.10-alpine
-    volumes:
-      - ./.dockerstorage/redis:/usr/local/etc/redis
+  db:
+    container_name: db
+    image: postgres:15-alpine
     ports:
-      - "6379:6379"
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: rls
+      POSTGRES_PASSWORD: rls
+      POSTGRES_DB: rls
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./.dockerstorage/db/data:/var/lib/postgresql/data
+      - ./.dockerstorage/db/init:/docker-entrypoint-initdb.d
   # rls:
   #   container_name: rls
   #   image: localhost/rls:latest

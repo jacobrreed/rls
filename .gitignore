@@ -1,2 +1,3 @@
-.dockerstorage
+.dockerstorage/*
+!.dockerstorage/db/init/init.sh
 target/
